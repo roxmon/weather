@@ -4,6 +4,8 @@
 from dotenv import load_dotenv
 import os
 import requests
+#importing from matplotlib import pyplot as plt for creating a graph
+from matplotlib import pyplot as plt
 
 # we are working with an API. Our key to have access to the data is stored in another file named ".env"
 load_dotenv()
@@ -93,6 +95,13 @@ def main():
                     print(f"Max temperature in °C: {max_temp}")
                     print(f"Min temperature in °C: {min_temp}")
                     print(f"Condition: {condition_text}")
+
+
+                    x = []
+                    y = []
+                    x.append (date)
+                    y.append (max_temp)
+                    plt.plot (x,y)
             else:
                 # if it fails to retrieve the data this is also stated
                 print("Failed to retrieve forecast data.")
