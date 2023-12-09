@@ -112,7 +112,7 @@ def main():
                     for i, is_rain in enumerate (rain):
                         if is_rain:
                             plt.scatter(x[i], min_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
-
+                            plt.scatter(x[i], max_y[i], marker='o', color='blue')
                     print(f"\nDate: {date}")
                     print(f"Max temperature in °C: {max_temp}")
                     print(f"Min temperature in °C: {min_temp}")
@@ -149,3 +149,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
