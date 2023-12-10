@@ -15,6 +15,32 @@ token = os.environ.get("api-token")
 current_url = "http://api.weatherapi.com/v1/current.json"
 forecast_url = "http://api.weatherapi.com/v1/forecast.json"
 
+# New function to suggest activities based on weather
+def activity_suggestions(weather_data):
+    """
+    Suggests whether to engage in outdoor activities or wash cars based on weather data.
+    :param weather_data: A dictionary containing weather information.
+    :return: A string with the suggestion.
+    """
+    try:
+        temp_c = weather_data['current']['temp_c']
+        is_raining = 'rain' in weather_data['current']['condition']['text'].lower()
+        precipitation = weather_data['current']['precip_mm']
+
+        suggestion = "Suggestion: "
+        if temp_c > 20 and not is_raining:
+            suggestion += "Great day for outdoor activities. "
+            if precipitation < 0.1:
+                suggestion += "Also a good day to wash your car."
+        elif is_raining or precipitation > 0.5:
+            suggestion += "Prefer indoor activities due to rain."
+        else:
+            suggestion += "Conditions are average, outdoor activities are possible."
+
+        return suggestion
+    except KeyError:
+        return "Weather data not sufficient for activity suggestions."
+    
 # we define the main function of the code
 def main():
 
@@ -70,7 +96,9 @@ def main():
                 print(f"Temperature in °C: {temp_c}")
                 print(f"Is day: {bool(is_day)}")
                 print(f"Condition: {condition_text}")
-
+             # Call the new function for activity suggestions
+               suggestion = activity_suggestions(response)
+               print(suggestion)
         if option == 2:
             # the user is asked to enter the number of days they want the forecast for
             forecast_days = input("Enter the number of days for forecast (1-10): ")
@@ -86,6 +114,7 @@ def main():
                 response = api_call.json()  # get the response as JSON format
                 forecast_data = response['forecast']['forecastday'] # the forecast information is set to be forecast_data
                 # for each of the days the date, the maximum and minimum temperature and a short description of the weather is retrieved
+                # For each day in the forecast, you could call the function
                 for day in forecast_data:
                     date = day['date']
                     max_temp = day['day']['maxtemp_c']
@@ -102,6 +131,8 @@ def main():
                     x.append (date)
                     y.append (max_temp)
                     plt.plot (x,y)
+                    suggestion = activity_suggestions(day)
+                    print(suggestion)
             else:
                 # if it fails to retrieve the data this is also stated
                 print("Failed to retrieve forecast data.")
