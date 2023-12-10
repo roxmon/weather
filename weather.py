@@ -99,6 +99,7 @@ def main():
              # Call the new function for activity suggestions
                suggestion = activity_suggestions(response)
                print(suggestion)
+            
         if option == 2:
             # the user is asked to enter the number of days they want the forecast for
             forecast_days = input("Enter the number of days for forecast (1-10): ")
