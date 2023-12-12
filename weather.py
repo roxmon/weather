@@ -22,7 +22,6 @@ def activity_suggestions(weather_data):
     :param weather_data: A dictionary containing weather information
     :return: A string with the suggestion
     """
-    print(weather_data)
     try:
         temp_c = weather_data['current']['temp_c']
         is_raining = 'rain' in weather_data['current']['condition']['text'].lower()
