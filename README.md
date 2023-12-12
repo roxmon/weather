@@ -1,6 +1,6 @@
 # Weather
 
-Use [weatherapi.com](https://www.weatherapi.com) API to get weather data.
+This program use the [weatherapi.com](https://www.weatherapi.com) API to get weather data.
 
 ## Prerequisites
 
