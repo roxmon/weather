@@ -1,6 +1,6 @@
 # Weather
 
-Use [weatherapi.com](https://www.weatherapi.com) website to get weather data.
+Use [weatherapi.com](https://www.weatherapi.com) API to get weather data.
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@ Install the required Python modules listed in the file requirements.txt:
 pip install -r requirements.txt
 ```
 
-Create a file called .env and put the following variable into it. Make sure to replace the API key:
+Create a file called .env and put the API key as a variable into it (make sure to replace the the "XXXXXXXX" with the API key):
 ```
 api-token = "XXXXXXXX"
 ```
