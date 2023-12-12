@@ -1,6 +1,6 @@
 # Weather
 
-Use weatherapi.com[https://www.weatherapi.com] website to get weather data.
+Use [weatherapi.com](https://www.weatherapi.com) website to get weather data.
 
 ## Prerequisites
 
