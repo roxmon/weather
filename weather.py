@@ -100,7 +100,7 @@ def main():
                 print(suggestion)
 
         if option == 2:
-            # the user is asked to enter the number of days they want the forecast for
+            # the user is asked to enter the number of days they want the forecast for (max 3 days because we use the free plan)
             forecast_days = input("Enter the number of days for forecast (1-3): ")
             data = {
                 'key': token,   # key is defined to be the API token
@@ -152,8 +152,8 @@ def main():
                 if is_rain:
                     plt.scatter(x[i], max_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
                     plt.scatter(x[i], min_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
-                else:
-                    plt.scatter(x[i], max_y[i], marker='o', color='green')
+                else: # make a dot if there is no rain
+                    plt.scatter(x[i], max_y[i], marker='o', color='green') # marker = 'o' to make a dot
                     plt.scatter(x[i], min_y[i], marker='o', color='orange')
 
             plt.title(f"Forecasted Temperature for {actual_city}")
