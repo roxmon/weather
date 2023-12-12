@@ -15,7 +15,7 @@ token = os.environ.get("api-token")
 current_url = "http://api.weatherapi.com/v1/current.json"
 forecast_url = "http://api.weatherapi.com/v1/forecast.json"
 
-# New function to suggest activities based on weather
+# function to suggest activities based on weather
 def activity_suggestions(weather_data):
     """
     Suggests whether to engage in outdoor activities or wash cars based on weather data
@@ -95,7 +95,7 @@ def main():
                 print(f"Temperature in °C: {temp_c}")
                 print(f"Is day: {bool(is_day)}")
                 print(f"Condition: {condition_text}")
-                # call the new function for activity suggestions
+                # call the function for activity suggestions
                 suggestion = activity_suggestions(response)
                 print(suggestion)
 
