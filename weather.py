@@ -110,7 +110,7 @@ def main():
             # the API call is made to the forecast API, the parameters are defined to be the ones specified as the data above
             api_call = requests.get(forecast_url, params=data)
             # check the success of the API call (code 200=success)
-            if api_call.status_code == 200:
+            if api_call.status_code != 200:
                 # if it fails to retrieve the data this is also stated
                 print("Failed to retrieve forecast data")
                 continue
