@@ -15,7 +15,7 @@ token = os.environ.get("api-token")
 current_url = "http://api.weatherapi.com/v1/current.json"
 forecast_url = "http://api.weatherapi.com/v1/forecast.json"
 
-# function to suggest activities based on weather
+# New function to suggest activities based on weather
 def activity_suggestions(weather_data):
     """
     Suggests whether to engage in outdoor activities or wash cars based on weather data
@@ -83,25 +83,25 @@ def main():
                 # get the response as JSON format
                 response = api_call.json()
                 # take the infos we want from the data and print
-                name = response['location']['name']
+                actual_city = response['location']['name']
                 region = response['location']['region']
                 localtime = response['location']['localtime']
                 temp_c = response['current']['temp_c']
                 is_day = response['current']['is_day']
                 condition_text = response['current']['condition']['text']
 
-                print(f"\nCity: {name}, {region}")
+                print(f"\nCity: {actual_city}, {region}")
                 print(f"Localtime: {localtime}")
                 print(f"Temperature in °C: {temp_c}")
                 print(f"Is day: {bool(is_day)}")
                 print(f"Condition: {condition_text}")
-                # call the function for activity suggestions
+                # call the new function for activity suggestions
                 suggestion = activity_suggestions(response)
                 print(suggestion)
 
         if option == 2:
             # the user is asked to enter the number of days they want the forecast for
-            forecast_days = input("Enter the number of days for forecast (1-10): ")
+            forecast_days = input("Enter the number of days for forecast (1-3): ")
             data = {
                 'key': token,   # key is defined to be the API token
                 'q': city,  # q is defined to be the city that was entered by the user
@@ -116,6 +116,7 @@ def main():
                 continue
 
             response = api_call.json()  # get the response as JSON format
+            actual_city = response['location']['name']
             forecast_data = response['forecast']['forecastday'] # the forecast information is set to be forecast_data
 
             x = []
@@ -149,10 +150,13 @@ def main():
 
             for i, is_rain in enumerate(rain):
                 if is_rain:
-                    plt.scatter(x[i], min_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
                     plt.scatter(x[i], max_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
+                    plt.scatter(x[i], min_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
+                else:
+                    plt.scatter(x[i], max_y[i], marker='o', color='green')
+                    plt.scatter(x[i], min_y[i], marker='o', color='orange')
 
-            plt.title(f"Forecasted Temperature for {city.capitalize()}")
+            plt.title(f"Forecasted Temperature for {actual_city}")
             plt.xlabel("Timeframe")
             plt.ylabel("Temperature in °C")
             plt.legend()
