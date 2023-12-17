@@ -23,11 +23,14 @@ def activity_suggestions(weather_data):
     :return: A string with the suggestion
     """
     try:
+        # Extract relevant data from the weather response
         temp_c = weather_data['current']['temp_c']
         is_raining = 'rain' in weather_data['current']['condition']['text'].lower()
         precipitation = weather_data['current']['precip_mm']
 
+        # Initialize the suggestion string
         suggestion = "Suggestion: "
+        # Determine suggestions based on temperature and precipitation
         if temp_c > 20 and not is_raining:
             suggestion += "Great day for outdoor activities. "
             if precipitation < 0.1:
@@ -39,6 +42,7 @@ def activity_suggestions(weather_data):
 
         return suggestion
     except KeyError:
+        # In case of missing data in the response
         return "Weather data not sufficient for activity suggestions."
 
 # we define the main function of the code
@@ -163,6 +167,6 @@ def main():
             plt.xticks()
             plt.show()
 
-
+# Entry point of the script
 if __name__ == "__main__":
     main()
