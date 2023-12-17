@@ -123,19 +123,23 @@ def main():
             actual_city = response['location']['name']
             forecast_data = response['forecast']['forecastday'] # the forecast information is set to be forecast_data
 
-            x = []
-            max_y = []
-            min_y = []
-            rain = []
+            x = [] # Date
+            max_y = [] # Maximum Temperature
+            min_y = [] # Minimum Temperature
+            rain = [] # Rain
+            
             # for each of the days the date, the maximum and minimum temperature and a short description of the weather is retrieved
             for day in forecast_data:
                 date = day['date']
                 max_temp = day['day']['maxtemp_c']
                 min_temp = day['day']['mintemp_c']
 
+                # Temperature and dates are getting added to their lists
                 x.append(date)
                 max_y.append(max_temp)
                 min_y.append(min_temp)
+
+                # checking if rain is in the weather description and adding the information to the weather indicator
                 condition_text = day['day']['condition']['text']
                 search_word = "rain"
                 if search_word in condition_text.lower():
@@ -143,28 +147,33 @@ def main():
                 else:
                     rain.append(False)
 
+                #printing data for every day
                 condition_text = day['day']['condition']['text']
                 print(f"\nDate: {date}")
                 print(f"Max temperature in °C: {max_temp}")
                 print(f"Min temperature in °C: {min_temp}")
                 print(f"Condition: {condition_text}")
 
+            # printing lines for the maximum temperature and the minium temperature for every day of the forecast
             plt.plot(x,max_y, color="green", label="Max Temperature" if 'Max Temperature' not in plt.gca().get_legend_handles_labels()[1] else '')
             plt.plot(x,min_y, color="orange", label="Min Temperature" if 'Min Temperature' not in plt.gca().get_legend_handles_labels()[1] else '')
 
+             # creating dots for rainy days
             for i, is_rain in enumerate(rain):
                 if is_rain:
+                     # rain is marked with a blue dot
                     plt.scatter(x[i], max_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
                     plt.scatter(x[i], min_y[i], marker='o', color='blue', label='Rain' if 'Rain' not in plt.gca().get_legend_handles_labels()[1] else '')
                 else: # make a dot if there is no rain
                     plt.scatter(x[i], max_y[i], marker='o', color='green') # marker = 'o' to make a dot
                     plt.scatter(x[i], min_y[i], marker='o', color='orange')
-
+                    
+            # Adding title, description of the axes and a legend
             plt.title(f"Forecasted Temperature for {actual_city}")
             plt.xlabel("Timeframe")
             plt.ylabel("Temperature in °C")
             plt.legend()
-            plt.xticks()
+            plt.xticks() # turning the dates so they don't overlap
             plt.show()
 
 # Entry point of the script
