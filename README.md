@@ -1,3 +1,6 @@
+Endrik Meitinger (22-616-759), Paul Spielberger (18-619-098), Roxane Monnier (20-207-924), Yueheng Niu (23-603-194), Moritz Türk (21-615-935)
+
+
 # Weather
 
 This program use the [weatherapi.com](https://www.weatherapi.com) API to get weather data.
